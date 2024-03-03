@@ -1,6 +1,9 @@
 package rest
 
 import (
+	driver "go-blog/Driver"
+	"go-blog/gateway"
+	"go-blog/usecase"
 	"net/http"
 
 	"github.com/labstack/echo"
@@ -11,5 +14,9 @@ func GetBlogsRest(e *echo.Echo) {
 }
 
 func getBlogsHandler(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello, World!")
+	driver := driver.NewBlogsDriver()
+	gateway := gateway.NewGetBlogsGateway(driver)
+	usecase := usecase.NewGetBlogsUsecase(gateway)
+	blogs, _ := usecase.Execute()
+	return c.JSON(http.StatusOK, blogs)
 }
