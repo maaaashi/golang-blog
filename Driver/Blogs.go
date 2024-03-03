@@ -10,8 +10,8 @@ func NewBlogsDriver() *BlogsDriver {
 	return &BlogsDriver{}
 }
 
-func (d *BlogsDriver) GetBlogs() ([]gateway.BlogJson, error) {
-	return []gateway.BlogJson{
+func (d *BlogsDriver) GetBlogs() ([]*gateway.BlogJson, error) {
+	return []*gateway.BlogJson{
 		{
 			Id:      1,
 			Title:   "Title 1",

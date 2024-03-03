@@ -9,7 +9,7 @@ type BlogJson struct {
 }
 
 type GetBlogsInputPort interface {
-	GetBlogs() ([]BlogJson, error)
+	GetBlogs() ([]*BlogJson, error)
 }
 
 type GetBlogsGateway struct {
@@ -22,12 +22,12 @@ func NewGetBlogsGateway(blogsDriver GetBlogsInputPort) *GetBlogsGateway {
 	}
 }
 
-func (g *GetBlogsGateway) Execute() ([]domain.Blog, error) {
-	var blogs []domain.Blog
+func (g *GetBlogsGateway) Execute() ([]*domain.Blog, error) {
+	var blogs []*domain.Blog
 	blogsJson, _ := g.BlogsDriver.GetBlogs()
 
 	for _, blogJson := range blogsJson {
-		blogs = append(blogs, domain.Blog{Id: domain.BlogId(blogJson.Id), Title: domain.BlogTItle(blogJson.Title), Content: domain.BlogContent(blogJson.Content)})
+		blogs = append(blogs, &domain.Blog{Id: domain.BlogId(blogJson.Id), Title: domain.BlogTItle(blogJson.Title), Content: domain.BlogContent(blogJson.Content)})
 	}
 	return blogs, nil
 }

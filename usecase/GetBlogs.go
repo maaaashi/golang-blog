@@ -5,7 +5,7 @@ import (
 )
 
 type GetBlogsInputPort interface {
-	Execute() ([]domain.Blog, error)
+	Execute() ([]*domain.Blog, error)
 }
 
 type GetBlogsUsecase struct {
@@ -18,6 +18,6 @@ func NewGetBlogsUsecase(inputPort GetBlogsInputPort) GetBlogsUsecase {
 	}
 }
 
-func (g *GetBlogsUsecase) Execute() ([]domain.Blog, error) {
+func (g *GetBlogsUsecase) Execute() ([]*domain.Blog, error) {
 	return g.GetBlogsInputPort.Execute()
 }
